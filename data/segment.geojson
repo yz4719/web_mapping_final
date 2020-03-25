@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "name": "7th Ave Segment",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            286.0093116760254,
+            40.750930774180645
+          ],
+          [
+            286.01622104644775,
+            40.76052074107624
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "name": "5th Ave Segment",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            286.01038455963135,
+            40.74153451605774
+          ],
+          [
+            286.0036039352417,
+            40.73223448999161
+          ]
+        ]
+      }
+    }
+  ]
+}
