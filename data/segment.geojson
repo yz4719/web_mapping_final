@@ -5,6 +5,9 @@
       "type": "Feature",
       "properties": {},
       "name": "7th Ave Segment",
+      "year": "November, 2018",
+      "boarding": "673.6",
+      "activity": "1566.1",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -23,6 +26,9 @@
       "type": "Feature",
       "properties": {},
       "name": "5th Ave Segment",
+      "year": "June, 2017",
+      "boarding": "237.7",
+      "activity": "612.6",
       "geometry": {
         "type": "LineString",
         "coordinates": [
