@@ -269,15 +269,80 @@ map.on('style.load', function() {
     }
 
   });
-  map.on(('click',function(seg){
-    setPopup(new mapboxgl.Popup({offset:25})
-      .setHTML(`This is ${seg.name} project. This project completed by ${seg.year}.`))
+
+  map.on('load', function() {
+  map.addSource('segments', {
+  'type': 'geojson',
+  'data': {"type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "name": "7th Ave Segment",
+      "year": "November, 2018",
+      "boarding": "673.6",
+      "activity": "1566.1",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            286.0093116760254,
+            40.750930774180645
+          ],
+          [
+            286.01622104644775,
+            40.76052074107624
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "name": "5th Ave Segment",
+      "year": "June, 2017",
+      "boarding": "237.7",
+      "activity": "612.6",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            286.01038455963135,
+            40.74153451605774
+          ],
+          [
+            286.0036039352417,
+            40.73223448999161
+          ]
+        ]
+      }
+    }
+  ]
+}});
+  map.on(('click', 'segments',function(e){
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var description = e.features[0].name;
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    new mapboxgl.Popup()
+    .setLngLat(coordinates)
+    .setHTML(description)
     .addTo(map);
-  }
-)
+    }));
+    map.on('mouseenter', 'segments', function() {
+    map.getCanvas().style.cursor = 'pointer';
+    });
 
-  );
-
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'segents', function() {
+    map.getCanvas().style.cursor = '';
+    
+    });
 
   // listen for the mouse moving over the map and react when the cursor is over our data
 
@@ -332,7 +397,7 @@ map.on('style.load', function() {
 
       var hoveredFeature = features[0]
       var featureInfo = `
-        <h4>${hoveredFeature.properties.address}</h4>
+        <h5>${hoveredFeature.properties.address}</h5>
         <p><strong>Land Use:</strong> ${LandUseLookup(parseInt(hoveredFeature.properties.landuse)).description}</p>
         <p><strong>Zoning:</strong> ${hoveredFeature.properties.zonedist1}</p>
       `
