@@ -238,11 +238,12 @@ map.on('style.load', function() {
   // console.log(map.getStyle().sources);
   map.addLayer({
     id: 'line-segment',
-    type: 'fill',
+    type: 'line',
     source: 'segment',
     layout: {},
     paint: {
-      'fill-color': '#FFFFFF',
+      'line-color': '#FFFFFF',
+      'line-width': 3,
     },
 
   });
@@ -264,10 +265,11 @@ map.on('style.load', function() {
       'line-width': 2,
       'line-opacity': 0.9,
       'line-color': 'white',
+
     }
 
   });
-  segment.forEach((function(seg){
+  map.on(('click',function(seg){
     setPopup(new mapboxgl.Popup({offset:25})
       .setHTML(`This is ${seg.name} project. This project completed by ${seg.year}.`))
     .addTo(map);
