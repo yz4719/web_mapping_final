@@ -92,7 +92,7 @@ $('#feature-info').html(defaultText)
 
 // create an object to hold the initialization options for a mapboxGL map
 var initOptions = {
-  container: 'map-container', // put the map in this container
+  container: 'map', // put the map in this container
   style: 'mapbox://styles/mapbox/dark-v10', // use this basemap
   center: initialCenterPoint, // initial view center
   zoom: initialZoom, // initial view zoom level (0-18)
@@ -277,25 +277,29 @@ map.on('style.load', function() {
 
   });
 
-
+  // disable map zoom when using scroll
+map.scrollZoom.disable();
 // select lines around pointer
 map.on('click', function(e) {
-// set bbox as 5px reactangle area around clicked point
-var bbox = [
-[e.point.x - 5, e.point.y - 5],
-[e.point.x + 5, e.point.y + 5]
-];
-var features = map.queryRenderedFeatures(bbox, {
-layers: ['segment']
-});
+  // set bbox as 5px reactangle area around clicked point
+  var bbox = [
+    [e.point.x - 5, e.point.y - 5],
+    [e.point.x + 5, e.point.y + 5]
+  ];
+  var features = map.queryRenderedFeatures(bbox, {
+    layers: ['line-segment']
+  });
 
-// popup
-map.on(('click',function(segment){
-    setPopup(new mapboxgl.Popup({offset:25})
-      .setHTML(This is ${segment.name} project. This project completed by ${segment.year}.))
-    .addTo(map);
-  }
-));
+console.log(features)
+
+if (features[0]) {
+  console.log(e)
+  new mapboxgl.Popup({offset:25})
+  .setLngLat(e.lngLat)
+  .setHTML(`This is ${features[0].properties.name} project. This project completed by ${features[0].properties.year}.`)
+  .addTo(map)
+}
+
 
 //   map.on('load', function() {
 //   map.addSource('segments', {
@@ -467,6 +471,7 @@ map.on(('click',function(segment){
     // add a layer for the highlighted lot
 
   })
+})
 
 
 })
@@ -485,4 +490,5 @@ $('#7th').on('click', function() {
     center: michiganLngLat,
     zoom: initialZoom
   })
+
 })

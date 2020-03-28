@@ -18,7 +18,11 @@ body {
   left: 0;
   margin-top: inherit;
 
-
+  /* change popup background and tip color to yellow */
+/* #pop .mapboxgl-popup-content {
+  background-color: yellow;  }
+.pop .mapboxgl-popup-tip {
+  border-top-color: yellow;  } */
 /* make the height of map larger */
 
 
