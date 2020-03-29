@@ -13,28 +13,18 @@ body {
 #map-container {
   position: relative;
   top:0;
-  bottom: 400;
+  bottom: 300;
   right: 0;
   left: 0;
   margin-top: inherit;
-
-  /* change popup background and tip color to yellow */
-/* #pop .mapboxgl-popup-content {
-  background-color: yellow;  }
-.pop .mapboxgl-popup-tip {
-  border-top-color: yellow;  } */
-/* make the height of map larger */
-
-
-
-  /* min-height: 0px;
-   */
-  /* -moz-transform: scale(2);
--webkit-transform: scale(1.7);
--o-transform: scale(1.7);
--ms-transform: scale(1.7); */
-/* transform: scale(1.5); */
 }
+
+/* popup styles */
+.mapboxgl-popup{
+  background-color: white ;
+
+}
+
 
 h3 {
   margin-top: 0;

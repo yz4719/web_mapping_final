@@ -7,13 +7,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW16enl5aGgiLCJhIjoiY2s2dTl6OGNsMDduejNkcXAwY
 var initialCenterPoint = [-73.989186,40.746867]
 var initialZoom = 13
 
-// add a geocoder
-// map.addControl(
-// new MapboxGeocoder({
-// accessToken: mapboxgl.pk.'eyJ1IjoibW16enl5aGgiLCJhIjoiY2s2YTI4YzJtMDIybTNlbWcxbHU0dXB4MiJ9.HcY5VSHxtQ4k4d9cddGRKQ',
-// mapboxgl: mapboxgl
-// })
-// );
+
 // a helper function for looking up colors and descriptions for NYC land use codes
 var LandUseLookup = (code) => {
   switch (code) {
@@ -292,95 +286,11 @@ map.on('click', function(e) {
 
 console.log(features)
 
-if (features[0]) {
-  console.log(e)
-  new mapboxgl.Popup({offset:25})
+  var popup= new mapboxgl.Popup({offset:25})
   .setLngLat(e.lngLat)
   .setHTML(`This is ${features[0].properties.name} project. This project completed by ${features[0].properties.year}.`)
-  .addTo(map)
-}
+  .addTo(map);
 
-
-//   map.on('load', function() {
-//   map.addSource('segments', {
-//   'type': 'geojson',
-//   'data': {"type": "FeatureCollection",
-//   "features": [
-//     {
-//       "type": "Feature",
-//       "properties": {},
-//       "name": "7th Ave Segment",
-//       "year": "November, 2018",
-//       "boarding": "673.6",
-//       "activity": "1566.1",
-//       "geometry": {
-//         "type": "LineString",
-//         "coordinates": [
-//           [
-//             286.0093116760254,
-//             40.750930774180645
-//           ],
-//           [
-//             286.01622104644775,
-//             40.76052074107624
-//           ]
-//         ]
-//       }
-//     },
-//     {
-//       "type": "Feature",
-//       "properties": {},
-//       "name": "5th Ave Segment",
-//       "year": "June, 2017",
-//       "boarding": "237.7",
-//       "activity": "612.6",
-//       "geometry": {
-//         "type": "LineString",
-//         "coordinates": [
-//           [
-//             286.01038455963135,
-//             40.74153451605774
-//           ],
-//           [
-//             286.0036039352417,
-//             40.73223448999161
-//           ]
-//         ]
-//       }
-//     }
-//   ]
-// }})});
-
-  // map.on(('click', 'segments',function(e){
-  //   var coordinates = e.features[0].geometry.coordinates.slice();
-  //   var description = e.features[0].name;
-
-
-    // Ensure that if the map is zoomed out such that multiple
-    // copies of the feature are visible, the popup appears
-    // over the copy being pointed to.
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
-
-    // new mapboxgl.Popup()
-    // .setLngLat(coordinates)
-    // .setHTML(description)
-    // .addTo(map);
-    // }));
-
-
-    // map.on('mouseenter', 'segments', function() {
-    // map.getCanvas().style.cursor = 'pointer';
-    // });
-
-    // Change it back to a pointer when it leaves.
-
-
-    // map.on('mouseleave', 'segents', function() {
-    // map.getCanvas().style.cursor = '';
-    //
-    // });
 
   // listen for the mouse moving over the map and react when the cursor is over our data
 
@@ -391,40 +301,6 @@ if (features[0]) {
     });
 
 
-    // popups
-    // Create a popup, but don't add it to the map yet.
-    // var popup = new mapboxgl.Popup({
-    // closeButton: false,
-    // closeOnClick: false
-    // });
-    //
-    // map.on('mouseenter', 'places', function(e) {
-    // // Change the cursor style as a UI indicator.
-    // map.getCanvas().style.cursor = 'pointer';
-    //
-    // var featureInfo = e.features[0].properties.description;
-    //
-    // // Ensure that if the map is zoomed out such that multiple
-    // // copies of the feature are visible, the popup appears
-    // // over the copy being pointed to.
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
-
-
-
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    // ==>edit popup
-    // popup
-    // .setHTML(featureInfo)
-    // .addTo(map);
-    // });
-    //
-    // map.on('mouseleave', 'places', function() {
-    // map.getCanvas().style.cursor = '';
-    // popup.remove();
-    // });
 
 
 
@@ -446,6 +322,8 @@ if (features[0]) {
     } else {
       // if there is no feature under the mouse, reset things:
       map.getCanvas().style.cursor = 'default'; // make the cursor default
+      // Add zoom and rotation controls to the map.
+      map.addControl(new mapboxgl.NavigationControl());
 
       // reset the highlight source to an empty featurecollection
       map.getSource('highlight-feature').setData({
@@ -456,25 +334,10 @@ if (features[0]) {
       // reset the default message
       $('#feature-info').html(defaultText)
     }
-
-    // js for LineString
-
-    // add segments
-
-    // // add an empty data source, which we will use to highlight the line the user is hovering over
-    // map.addSource('highlight-feature', {
-    //   type: 'geojson',
-    //   data: {
-    //     type: 'FeatureCollection',
-    //     features: []
-    //   }
-    // add a layer for the highlighted lot
-
   })
 })
-
-
 })
+// add fly to bottoms
 $('#5th').on('click', function() {
   map.flyTo({
     center: [-73.993145,40.736690],
