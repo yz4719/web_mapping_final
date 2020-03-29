@@ -282,14 +282,14 @@ map.on('click', function(e) {
   var features = map.queryRenderedFeatures(bbox, {
     layers: ['line-segment']
   });
+  // popup function
+    var popup= new mapboxgl.Popup({offset:25})
+    .setLngLat(e.lngLat)
+    .setHTML(`This is ${features[0].properties.name} project. This project completed by ${features[0].properties.year}.`)
+    .addTo(map);
 
-console.log(features)
 
-  var popup= new mapboxgl.Popup({offset:25})
-  .setLngLat(e.lngLat)
-  .setHTML(`This is ${features[0].properties.name} project. This project completed by ${features[0].properties.year}.`)
-  .addTo(map);
-
+// console.log(features)
 
   // listen for the mouse moving over the map and react when the cursor is over our data
 
@@ -298,13 +298,8 @@ console.log(features)
     var features = map.queryRenderedFeatures(e.point, {
         layers: ['fill-5th-st','fill-7th-st'],
     });
-
-
-
-
-
     // if the mouse pointer is over a feature on our layer of interest
-    // take the data for that feature and display it in the sidebar
+    // take the data for that feature and display it in the box above
     if (features.length > 0) {
       map.getCanvas().style.cursor = 'pointer';  // make the cursor a pointer
 
@@ -321,8 +316,7 @@ console.log(features)
     } else {
       // if there is no feature under the mouse, reset things:
       map.getCanvas().style.cursor = 'default'; // make the cursor default
-      // Add zoom and rotation controls to the map.
-      map.addControl(new mapboxgl.NavigationControl());
+
 
       // reset the highlight source to an empty featurecollection
       map.getSource('highlight-feature').setData({
@@ -336,6 +330,7 @@ console.log(features)
   })
 })
 })
+
 // add fly to bottoms
 $('#5th').on('click', function() {
   map.flyTo({

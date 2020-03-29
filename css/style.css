@@ -65,7 +65,9 @@ h3 {
   /* box-shadow: 1px 1px 7px #525252; */
   margin-bottom:15px;
 }
-
+#map {
+height: 400px;
+}
 /* on hover, make the background darker and turn the cursor to a pointer */
 button:hover {
   cursor: pointer;
